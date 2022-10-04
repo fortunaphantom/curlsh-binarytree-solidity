@@ -4,8 +4,8 @@ const { ethers } = require('hardhat');
 const Web3 = require('web3');
 
 let owner, addr1, addr2, addr3;
-let BinaryTreeContract;
-let instanceBinaryTree;
+let BinaryTreeTestContract, BinaryTreeContract;
+let instanceBinaryTreeTest, instanceBinaryTree;
 
 let provider = ethers.getDefaultProvider();
 
@@ -13,18 +13,41 @@ const contractName = 'BinaryTreeTest';
 
 beforeEach(async function () {
   [owner, addr1, addr2, addr3] = await ethers.getSigners();
-  BinaryTreeContract = await ethers.getContractFactory(contractName);
+  BinaryTreeTestContract = await ethers.getContractFactory(contractName);
+  instanceBinaryTreeTest = await BinaryTreeTestContract.deploy();
+  await instanceBinaryTreeTest.connect(owner).setUp();
+  BinaryTreeContract = await ethers.getContractFactory("MyBinaryTree");
   instanceBinaryTree = await BinaryTreeContract.deploy();
-  await instanceBinaryTree.connect(owner).setUp();
 });
 
 describe('BinaryTreeContract Test', function () {
   it('testInsert', async function () {
     // await instanceBinaryTree.connect(owner);
-    await instanceBinaryTree.connect(owner).testInsert();
+    await instanceBinaryTreeTest.connect(owner).testInsert();
   });
+
   it('testFindMin', async function () {
     // await instanceBinaryTree.connect(owner);
-    await instanceBinaryTree.connect(owner).testFindMin();
+    await instanceBinaryTreeTest.connect(owner).testFindMin();
+  });
+
+  it('testCompareTree', async function () {
+    await instanceBinaryTreeTest.connect(owner).testCompareTree();
+  });
+  
+  it('testSwapChildren', async function () {
+    await instanceBinaryTreeTest.connect(owner).testSwapChildren();
+
+    // await instanceBinaryTree.connect(owner).insert(1);
+    // await instanceBinaryTree.connect(owner).insert(4);
+    // await instanceBinaryTree.connect(owner).insert(2);
+    // await instanceBinaryTree.connect(owner).insert(3);
+
+    // const tree = {};
+    // tree["root"] = await instanceBinaryTree.getRootNode();
+    // tree["r1"] = await instanceBinaryTree.tree(tree["root"].right);
+    // tree["l2"] = await instanceBinaryTree.tree(tree["r1"].left);
+    // tree["r2"] = await instanceBinaryTree.tree(tree["r1"].right);
+    // console.log(tree);
   });
 });

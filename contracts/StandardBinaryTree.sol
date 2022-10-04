@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
-contract BinaryTree {
+contract StandardBinaryTree {
     struct Node {
         uint256 value;
         bytes32 left;
         bytes32 right;
     }
 
-    mapping (bytes32 => Node) private tree;
+    mapping (bytes32 => Node) internal tree;
 
-    bytes32 private rootAddress;
+    bytes32 public rootAddress;
 
     constructor() {
     }
@@ -274,11 +274,11 @@ contract BinaryTree {
 
     // search for a value in the tree
     function findElement(uint256 value) public view returns (bool) {
-        return findElementHelper(value, rootAddress);
+        return _findElementHelper(value, rootAddress);
     }
 
     // recursive helper function for findElement
-    function findElementHelper(uint256 value, bytes32 nodeAddress) internal view returns (bool) {
+    function _findElementHelper(uint256 value, bytes32 nodeAddress) internal view returns (bool) {
         Node memory node = tree[nodeAddress];
         if (node.value == value) {
             return true;
@@ -286,13 +286,13 @@ contract BinaryTree {
             if (node.left == 0) {
                 return false;
             } else {
-                return findElementHelper(value, node.left);
+                return _findElementHelper(value, node.left);
             }
         } else {
             if (node.right == 0) {
                 return false;
             } else {
-                return findElementHelper(value, node.right);
+                return _findElementHelper(value, node.right);
             }
         }
     } 
@@ -302,28 +302,28 @@ contract BinaryTree {
         - Here are some other functions that occasionally accompany tree implementations.
     */
     function findMin() public view returns (uint256) {
-        return findMinHelper(rootAddress);
+        return _findMinHelper(rootAddress);
     }
 
-    function findMinHelper(bytes32 nodeAddress) internal view returns (uint256) {
+    function _findMinHelper(bytes32 nodeAddress) internal view returns (uint256) {
         Node memory node = tree[nodeAddress];
         if (node.left == 0) {
             return node.value;
         } else {
-            return findMinHelper(node.left);
+            return _findMinHelper(node.left);
         }
     }
 
     function findMax() public view returns (uint256) {
-        return findMaxHelper(rootAddress);
+        return _findMaxHelper(rootAddress);
     }
 
-    function findMaxHelper(bytes32 nodeAddress) internal view returns (uint256) {
+    function _findMaxHelper(bytes32 nodeAddress) internal view returns (uint256) {
         Node memory node = tree[nodeAddress];
         if (node.right == 0) {
             return node.value;
         } else {
-            return findMaxHelper(node.right);
+            return _findMaxHelper(node.right);
         }
     }
 
@@ -352,5 +352,17 @@ contract BinaryTree {
                 return 1 + getTreeSizeHelper(node.left) + getTreeSizeHelper(node.right);
             }
         }
+    }
+
+    function getNode(bytes32 key) public view returns (Node memory) {
+        return tree[key];
+    }
+
+    function getRootNode() public view returns (Node memory) {
+        if (tree[rootAddress].value != 0) {
+            return tree[rootAddress];
+        } 
+        
+        revert ("Tree is empty");
     }
 }

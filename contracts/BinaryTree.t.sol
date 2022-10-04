@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.1;
 
-import "./SonnyTest.sol";
-import "./BinaryTree.sol";
+import "./StandardTest.sol";
+import "./MyBinaryTree.sol";
 
-contract BinaryTreeTest is SonnyTest {
-    BinaryTree Tree;
+contract BinaryTreeTest is StandardTest {
+    MyBinaryTree Tree;
 
     function setUp() public {
-        Tree = new BinaryTree();
+        Tree = new MyBinaryTree();
     }
 
     /*
@@ -75,5 +75,42 @@ contract BinaryTreeTest is SonnyTest {
         Tree.insert(2);
         Tree.insert(3);
         assertTrue(Tree.getTreeSize() == 4);
+    }
+
+    /*
+    * Topic: Binary Trees
+    * Problem 2: Create a function that returns bool, checks if two binary trees are identical, given the root of each
+    */
+    function testCompareTree() public {
+        MyBinaryTree Tree1 = new MyBinaryTree();
+        MyBinaryTree Tree2 = new MyBinaryTree();
+
+        Tree1.insert(1);
+        Tree1.insert(4);
+        Tree1.insert(2);
+        Tree1.insert(3);
+
+
+        Tree2.insert(1);
+        Tree2.insert(4);
+        Tree2.insert(2);
+        Tree2.insert(3);
+
+        assertTrue(Tree1.compareNodes(Tree2));
+    }
+
+    /*
+    * Topic: Binary Trees
+    * Problem 1: Create a function that swaps left & right children for each node within a binary tree, given the root node
+    */
+    function testSwapChildren() public {
+        Tree.insert(1);
+        Tree.insert(4);
+        Tree.insert(2);
+        Tree.insert(3);
+        Tree.swapChildren(Tree.rootAddress());
+        StandardBinaryTree.Node memory root = Tree.getRootNode();
+        StandardBinaryTree.Node memory leftChild = Tree.getNode(root.left);
+        assertTrue(leftChild.value == 4);
     }
 }
