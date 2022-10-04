@@ -19,15 +19,15 @@ module.exports = {
     ]
   },
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL,
-      accounts: [process.env.PRIVATE_KEY]
-    },
+    // ropsten: {
+    //   url: process.env.ROPSTEN_URL,
+    //   accounts: [process.env.PRIVATE_KEY]
+    // },
   },
   namedAccounts: {
     account0: 0
   },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY
-  }
+  // etherscan: {
+  //   apiKey: process.env.ETHERSCAN_API_KEY
+  // }
 }
