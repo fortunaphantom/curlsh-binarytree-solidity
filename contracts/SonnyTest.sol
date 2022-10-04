@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.1;
 
-contract DSTest {
+contract SonnyTest {
     event log                    (string);
     event logs                   (bytes);
 
@@ -45,6 +45,9 @@ contract DSTest {
         if (!condition) {
             emit log("Error: Assertion Failed");
             fail();
+
+            // revert the transaction
+            require(condition, "Error: Assertion Failed");
         }
     }
 
@@ -63,7 +66,7 @@ contract DSTest {
             fail();
         }
     }
-    
+
     function assertEq(address a, address b, string memory err) internal {
         if (a != b) {
             emit log_named_string ("Error", err);

@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const ethers = require('ethers');
 const Web3 = require('web3');
 
-const contractName = "BinaryTree";
+const contractName = "BinaryTreeTest";
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { account0 } = await getNamedAccounts();
