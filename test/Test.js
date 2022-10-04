@@ -22,12 +22,10 @@ beforeEach(async function () {
 
 describe('BinaryTreeContract Test', function () {
   it('testInsert', async function () {
-    // await instanceBinaryTree.connect(owner);
     await instanceBinaryTreeTest.connect(owner).testInsert();
   });
 
   it('testFindMin', async function () {
-    // await instanceBinaryTree.connect(owner);
     await instanceBinaryTreeTest.connect(owner).testFindMin();
   });
 
@@ -37,17 +35,5 @@ describe('BinaryTreeContract Test', function () {
   
   it('testSwapChildren', async function () {
     await instanceBinaryTreeTest.connect(owner).testSwapChildren();
-
-    // await instanceBinaryTree.connect(owner).insert(1);
-    // await instanceBinaryTree.connect(owner).insert(4);
-    // await instanceBinaryTree.connect(owner).insert(2);
-    // await instanceBinaryTree.connect(owner).insert(3);
-
-    // const tree = {};
-    // tree["root"] = await instanceBinaryTree.getRootNode();
-    // tree["r1"] = await instanceBinaryTree.tree(tree["root"].right);
-    // tree["l2"] = await instanceBinaryTree.tree(tree["r1"].left);
-    // tree["r2"] = await instanceBinaryTree.tree(tree["r1"].right);
-    // console.log(tree);
   });
 });
